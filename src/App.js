@@ -7,7 +7,7 @@ class App extends Component {
 
     this.state = {
       DV: null,
-      SI: null
+      SI: []
     };
   }
   componentDidMount() {
@@ -32,7 +32,13 @@ class App extends Component {
   render() {
     const { DV, SI } = this.state;
 
-    return <div>run</div>;
+    // const mapStatus = SI.map(status => {
+    //   const match = DV.filter(deviceMatch => {
+    //     return status.id === deviceMatch.id;
+    //   });
+    //   console.log(match);
+    // });
+    return <div></div>;
   }
 }
 
