@@ -12,6 +12,7 @@ class App extends Component {
   }
   componentDidMount() {
     this.viewAllDevices();
+    this.viewAllStatus();
   }
   viewAllDevices() {
     axios.get("/api/all_devices").then(response => {
@@ -20,9 +21,16 @@ class App extends Component {
       });
     });
   }
+  viewAllStatus() {
+    axios.get("/api/all_status").then(response => {
+      this.setState({
+        SI: response.data
+      });
+    });
+  }
 
   render() {
-    const { DV } = this.state;
+    const { DV, SI } = this.state;
 
     return <div>run</div>;
   }
