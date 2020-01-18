@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const { viewAllDevices } = require("./controllers/deviceController");
 const { viewAllStatus } = require("./controllers/statusController");
-const port = 5000;
+const port = 4001;
 
 app.use(express.json());
 

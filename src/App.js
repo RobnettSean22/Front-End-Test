@@ -6,10 +6,11 @@ class App extends Component {
     super(props);
 
     this.state = {
-      DV: null,
-      SI: []
+      DV: [],
+      SI: null
     };
   }
+
   componentDidMount() {
     this.viewAllDevices();
     this.viewAllStatus();
@@ -17,28 +18,30 @@ class App extends Component {
   viewAllDevices() {
     axios.get("/api/all_devices").then(response => {
       this.setState({
-        DV: response.data
+        DV: response.data.devices
       });
     });
   }
   viewAllStatus() {
     axios.get("/api/all_status").then(response => {
       this.setState({
-        SI: response.data
+        SI: response.data.status
       });
     });
   }
 
   render() {
     const { DV, SI } = this.state;
-
-    // const mapStatus = SI.map(status => {
-    //   const match = DV.filter(deviceMatch => {
+    console.log(DV);
+    const mapDV = DV.map(devices => {
+      return devices.id;
+    });
+    // const mapStatus = this.SI.map(status => {
+    //   const match = this.DV.filter(deviceMatch => {
     //     return status.id === deviceMatch.id;
     //   });
-    //   console.log(match);
     // });
-    return <div></div>;
+    return <div>{mapDV}</div>;
   }
 }
 
