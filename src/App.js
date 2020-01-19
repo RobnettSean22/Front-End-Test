@@ -30,18 +30,33 @@ class App extends Component {
     });
   }
 
+  matchRender() {
+    if (!this.SI) {
+      const mapSI = this.DV.map(device => {
+        const match = this.SI.filter(stats => {
+          return stats.id === device.deviceID;
+        });
+        const rend = match.map(combine => {
+          return (
+            <div key={combine.id}>
+              <div>
+                <img src={combine.thumbnail} alt="" />
+              </div>
+            </div>
+          );
+        });
+        return rend;
+      });
+      return mapSI;
+    }
+  }
   render() {
     const { DV, SI } = this.state;
+
+    console.log(SI);
     console.log(DV);
-    const mapDV = DV.map(devices => {
-      return devices.id;
-    });
-    // const mapStatus = this.SI.map(status => {
-    //   const match = this.DV.filter(deviceMatch => {
-    //     return status.id === deviceMatch.id;
-    //   });
-    // });
-    return <div>{mapDV}</div>;
+    console.log(this.matchRender());
+    return <div></div>;
   }
 }
 
