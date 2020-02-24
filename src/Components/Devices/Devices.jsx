@@ -45,8 +45,8 @@ class Devices extends Component {
             const linkThem = matchId.map(together => {
               console.log(4444, together);
               return (
-                <div key={together.deviceId}>
-                  <div>
+                <div className="camera-container" key={together.deviceId}>
+                  <div className="pic-capsule">
                     <img src={together.thumbnail} alt="" />
                   </div>
                   <div>
