@@ -1,0 +1,13 @@
+body {
+  width: 100vw;
+  height: 100vh;
+}
+
+.active {
+  border-top: 2px solid green;
+}
+
+.inactive {
+  border-top: 2px solid red;
+}
+/*# sourceMappingURL=Devices.css.map */

@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,IAAI,CAAC;EACH,KAAK,EAAE,KAAK;EACZ,MAAM,EAAE,KAAK;CACd;;AAED,AAAA,OAAO,CAAC;EACN,UAAU,EAAE,eAAe;CAC5B;;AACD,AAAA,SAAS,CAAC;EACR,UAAU,EAAE,aAAa;CAC1B",
+    "sources": [
+        "Devices.scss"
+    ],
+    "names": [],
+    "file": "Devices.css"
+}

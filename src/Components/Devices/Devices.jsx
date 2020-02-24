@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./Devices.scss";
 import axios from "axios";
 
 class Devices extends Component {
@@ -42,8 +43,22 @@ class Devices extends Component {
             });
             console.log(2222, matchId);
             const linkThem = matchId.map(together => {
-              return <div key={together.Id}>{together.thumbnail}</div>;
+              console.log(4444, together);
+              return (
+                <div key={together.deviceId}>
+                  <div>
+                    <img src={together.thumbnail} alt="" />
+                  </div>
+                  <div>
+                    <div class={together.active ? "active" : "inactive"}>
+                      <h3>Active</h3>
+                      <h1>{dVices.name}</h1>
+                    </div>
+                  </div>
+                </div>
+              );
             });
+
             return linkThem;
           })}
       </div>
