@@ -8,7 +8,8 @@ class Devices extends Component {
 
     this.state = {
       devicesInventory: [],
-      statusInventory: []
+      statusInventory: [],
+      searchFilter: ""
     };
   }
   componentDidMount() {
@@ -31,11 +32,18 @@ class Devices extends Component {
   }
 
   render() {
-    const { deviceInventory, statusInventory } = this.state;
+    const { deviceInventory, statusInventory, searchFilter } = this.state;
     console.log(deviceInventory, statusInventory);
 
     return (
-      <div>
+      <div className="enclosure">
+        <div className="title">Your Camera</div>
+        <div className="search">
+          <input
+            value={searchFilter}
+            onChange={e => this.setState({ searchFilter: e.target.value })}
+          />
+        </div>
         {statusInventory.length > 1 &&
           deviceInventory.map(dVices => {
             const matchId = statusInventory.filter(deviceStatus => {
