@@ -58,7 +58,7 @@ class Devices extends Component {
                     <div className="pic-capsule">
                       <img src={together.thumbnail} alt="" />
                     </div>
-                    <div>
+                    <div className="status-n-name">
                       <div class={together.active ? "active" : "inactive"}>
                         <h3>Active</h3>
                         <h1>{dVices.name}</h1>
