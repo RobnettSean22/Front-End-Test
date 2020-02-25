@@ -44,31 +44,33 @@ class Devices extends Component {
             onChange={e => this.setState({ searchFilter: e.target.value })}
           />
         </div>
-        {statusInventory.length > 1 &&
-          deviceInventory.map(dVices => {
-            const matchId = statusInventory.filter(deviceStatus => {
-              return dVices.id === deviceStatus.deviceId;
-            });
-            console.log(2222, matchId);
-            const linkThem = matchId.map(together => {
-              console.log(4444, together);
-              return (
-                <div className="camera-container" key={together.deviceId}>
-                  <div className="pic-capsule">
-                    <img src={together.thumbnail} alt="" />
-                  </div>
-                  <div>
-                    <div class={together.active ? "active" : "inactive"}>
-                      <h3>Active</h3>
-                      <h1>{dVices.name}</h1>
+        <div className="camera-capsule">
+          {statusInventory.length > 1 &&
+            deviceInventory.map(dVices => {
+              const matchId = statusInventory.filter(deviceStatus => {
+                return dVices.id === deviceStatus.deviceId;
+              });
+              console.log(2222, matchId);
+              const linkThem = matchId.map(together => {
+                console.log(4444, together);
+                return (
+                  <div className="camera-container" key={together.deviceId}>
+                    <div className="pic-capsule">
+                      <img src={together.thumbnail} alt="" />
+                    </div>
+                    <div>
+                      <div class={together.active ? "active" : "inactive"}>
+                        <h3>Active</h3>
+                        <h1>{dVices.name}</h1>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            });
+                );
+              });
 
-            return linkThem;
-          })}
+              return linkThem;
+            })}
+        </div>
       </div>
     );
   }
