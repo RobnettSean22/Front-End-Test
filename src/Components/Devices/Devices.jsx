@@ -9,7 +9,8 @@ class Devices extends Component {
     this.state = {
       devicesInventory: [],
       statusInventory: [],
-      searchFilter: ""
+      searchFilter: "",
+      byName: true
     };
   }
   componentDidMount() {
@@ -32,7 +33,12 @@ class Devices extends Component {
   }
 
   render() {
-    const { deviceInventory, statusInventory, searchFilter } = this.state;
+    const {
+      deviceInventory,
+      statusInventory,
+      searchFilter,
+      byName
+    } = this.state;
     console.log(deviceInventory, statusInventory);
 
     return (
@@ -49,12 +55,19 @@ class Devices extends Component {
             {statusInventory.length > 1 &&
               deviceInventory.map(dVices => {
                 const matchId = statusInventory.filter(deviceStatus => {
-                  return (
-                    dVices.id === deviceStatus.deviceId &&
-                    dVices.name
-                      .toUpperCase()
-                      .indexOf(searchFilter.toUpperCase()) !== -1
-                  );
+                  if (byName) {
+                    return (
+                      dVices.id === deviceStatus.deviceId &&
+                      dVices.name
+                        .toUpperCase()
+                        .indexOf(searchFilter.toUpperCase()) !== -1
+                    );
+                  } else {
+                    return (
+                      dVices.id === deviceStatus.deviceId &&
+                      deviceStatus.active.indexOf() !== -1
+                    );
+                  }
                 });
                 console.log(2222, matchId);
                 const linkThem = matchId.map(together => {
