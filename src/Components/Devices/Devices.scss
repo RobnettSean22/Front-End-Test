@@ -1,46 +1,52 @@
 body {
   width: 100vw;
   height: 100vh;
-  .enclosure {
-    margin: 0 auto;
-    background: blue;
-    width: 80%;
-    height: 100%;
+}
+.enclosure {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  .title {
+    width: 60%;
+    height: 20%;
+
+    background: pink;
+  }
+  .search {
+    width: 60%;
+    height: 20%;
+
+    background: orange;
+  }
+  .grid-enclosure {
+    width: 60%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    .title {
-      background: pink;
-      width: 100%;
-      height: 10%;
-    }
-    .search {
-      background: yellow;
-      width: 100%;
-      height: 20%;
-    }
+
     .camera-capsule {
       width: 100%;
 
       display: grid;
       grid-template-columns: repeat(auto-fit, 30%);
+
       grid-column-gap: 20px;
-      row-gap: 20px;
+
       justify-content: center;
-      overflow-x: hidden;
-      overflow-y: auto;
-      background: green;
 
       .camera-container {
         width: 100%;
-        height: 100%;
+        height: 60%;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         .pic-capsule {
           width: 100%;
-          height: 50%;
+          height: 100%;
           img {
             width: 100%;
             height: 100%;
@@ -49,12 +55,34 @@ body {
         }
         .status-n-name {
           width: 100%;
-          height: 10%;
+          height: 30%;
+          display: flex;
+          justify-content: center;
+
           .active {
-            border-top: 2px solid green;
+            width: 80%;
+            height: 100%;
+
+            border-left: 3px solid green;
+            h3 {
+              margin: 0;
+            }
+            h1 {
+              font-size: 20px;
+              margin: 0;
+            }
           }
           .inactive {
-            border-top: 2px solid red;
+            width: 80%;
+            height: 100%;
+            border-left: 3px solid red;
+            h3 {
+              margin: 0;
+            }
+            h1 {
+              margin: 0;
+              font-size: 20px;
+            }
           }
         }
       }

@@ -44,32 +44,37 @@ class Devices extends Component {
             onChange={e => this.setState({ searchFilter: e.target.value })}
           />
         </div>
-        <div className="camera-capsule">
-          {statusInventory.length > 1 &&
-            deviceInventory.map(dVices => {
-              const matchId = statusInventory.filter(deviceStatus => {
-                return dVices.id === deviceStatus.deviceId;
-              });
-              console.log(2222, matchId);
-              const linkThem = matchId.map(together => {
-                console.log(4444, together);
-                return (
-                  <div className="camera-container" key={together.deviceId}>
-                    <div className="pic-capsule">
-                      <img src={together.thumbnail} alt="" />
-                    </div>
-                    <div className="status-n-name">
-                      <div class={together.active ? "active" : "inactive"}>
-                        <h3>Active</h3>
-                        <h1>{dVices.name}</h1>
+        <div className="grid-enclosure">
+          <div className="camera-capsule">
+            {statusInventory.length > 1 &&
+              deviceInventory.map(dVices => {
+                const matchId = statusInventory.filter(deviceStatus => {
+                  return (
+                    dVices.id === deviceStatus.deviceId &&
+                    dVices.name.indexOf(searchFilter) !== -1
+                  );
+                });
+                console.log(2222, matchId);
+                const linkThem = matchId.map(together => {
+                  console.log(4444, together);
+                  return (
+                    <div className="camera-container" key={together.deviceId}>
+                      <div className="pic-capsule">
+                        <img src={together.thumbnail} alt="" />
+                      </div>
+                      <div className="status-n-name">
+                        <div class={together.active ? "active" : "inactive"}>
+                          <h3>{together.active ? "Active" : "Inactive"}</h3>
+                          <h1>{dVices.name}</h1>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              });
+                  );
+                });
 
-              return linkThem;
-            })}
+                return linkThem;
+              })}
+          </div>
         </div>
       </div>
     );
