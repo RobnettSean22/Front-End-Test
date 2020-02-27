@@ -51,7 +51,7 @@ class Devices extends Component {
                 const matchId = statusInventory.filter(deviceStatus => {
                   return (
                     dVices.id === deviceStatus.deviceId &&
-                    dVices.name.indexOf(searchFilter) !== -1
+                    dVices.name.indexOf(searchFilter.toUpperCase()) !== -1
                   );
                 });
                 console.log(2222, matchId);
@@ -65,7 +65,7 @@ class Devices extends Component {
                       <div className="status-n-name">
                         <div class={together.active ? "active" : "inactive"}>
                           <h3>{together.active ? "Active" : "Inactive"}</h3>
-                          <h1>{dVices.name}</h1>
+                          <h1>{dVices.name.toUpperCase()}</h1>
                         </div>
                       </div>
                     </div>
