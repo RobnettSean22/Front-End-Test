@@ -12,9 +12,7 @@ class Devices extends Component {
       searchFilter: "",
       method: "name"
     };
-    this.changeToName = this.changeToName.bind(this);
-    this.changeToStatus = this.changeToStatus.bind(this);
-    this.changeToId = this.changeToId.bind(this);
+    this.sortBy = this.sortBy.bind(this);
   }
   componentDidMount() {
     this.viewAllDevices();
@@ -35,29 +33,14 @@ class Devices extends Component {
     });
   }
 
-  changeToStatus() {
+  sortBy() {
     this.setState({
-      method: "status"
-    });
-  }
-  changeToName() {
-    this.setState({
-      method: "name"
-    });
-  }
-  changeToId() {
-    this.setState({
-      method: "id"
+      statusInventory: this.response.data.sort()
     });
   }
 
   render() {
-    const {
-      deviceInventory,
-      statusInventory,
-      searchFilter,
-      method
-    } = this.state;
+    const { deviceInventory, statusInventory, searchFilter } = this.state;
     console.log(8282, statusInventory.deviceId);
 
     return (
@@ -71,7 +54,7 @@ class Devices extends Component {
           />
           <div>
             <div>Sort ...</div>
-            <div onClick={this.changeToName}>By Name</div>
+            <div onClick={this.sortBy}>By Name</div>
             <div onClick={this.changeToStatus}>By Status</div>
             <div onClick={this.changeToId}>By Id</div>
           </div>
@@ -83,7 +66,7 @@ class Devices extends Component {
               deviceInventory.map(dVices => {
                 const matchId = statusInventory.filter(deviceStatus => {
                   return (
-                    (dVices.id === deviceStatus.deviceId &&
+                    (dVices.id.sort === deviceStatus.deviceId &&
                       dVices.name
                         .toUpperCase()
                         .indexOf(searchFilter.toUpperCase()) !== -1) ||
