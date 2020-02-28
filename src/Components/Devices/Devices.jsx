@@ -10,10 +10,11 @@ class Devices extends Component {
       devicesInventory: [],
       statusInventory: [],
       searchFilter: "",
-      byName: "name",
-      byStatus: "status",
-      byId: "id"
+      method: "name"
     };
+    this.changeToName = this.changeToName.bind(this);
+    this.changeToStatus = this.changeToStatus.bind(this);
+    this.changeToId = this.changeToId.bind(this);
   }
   componentDidMount() {
     this.viewAllDevices();
@@ -36,17 +37,17 @@ class Devices extends Component {
 
   changeToStatus() {
     this.setState({
-      byName: "status"
+      method: "status"
     });
   }
   changeToName() {
     this.setState({
-      byName: "name"
+      method: "name"
     });
   }
   changeToId() {
     this.setState({
-      byName: "id"
+      method: "id"
     });
   }
 
@@ -55,11 +56,9 @@ class Devices extends Component {
       deviceInventory,
       statusInventory,
       searchFilter,
-      byName,
-      byStatus,
-      byId
+      method
     } = this.state;
-    console.log(8282, statusInventory);
+    console.log(8282, statusInventory.deviceId);
 
     return (
       <div className="enclosure">
@@ -69,12 +68,18 @@ class Devices extends Component {
             value={searchFilter}
             onChange={e => this.setState({ searchFilter: e.target.value })}
           />
-          <select className="">
-            <option value="">Search Method</option>
-            <option value={byName}>By Name</option>
-            <option value={byStatus}>By Status</option>
-            <option value={byId}>By Id</option>
-          </select>
+          <div>
+            <div value="">Search Method</div>
+            <div value={method} onClick={this.changeToName}>
+              By Name
+            </div>
+            <div value={method} onClick={this.changeToStatus}>
+              By Status
+            </div>
+            <div value={method} onclick={this.changeToId}>
+              By Id
+            </div>
+          </div>
         </div>
 
         <div className="grid-enclosure">
@@ -82,37 +87,38 @@ class Devices extends Component {
             {statusInventory.length > 1 &&
               deviceInventory.map(dVices => {
                 const matchId = statusInventory.filter(deviceStatus => {
-                  if (byName) {
+                  if (method === "name") {
                     return (
                       dVices.id === deviceStatus.deviceId &&
                       dVices.name
                         .toUpperCase()
                         .indexOf(searchFilter.toUpperCase()) !== -1
                     );
-                  } else if (byStatus) {
+                  } else if (method === "id") {
                     return (
                       dVices.id === deviceStatus.deviceId &&
-                      deviceStatus.active.indexOf(searchFilter) !== -1
+                      deviceStatus.deviceId.toString().indexOf(searchFilter) !==
+                        -1
                     );
                   } else {
                     return (
                       dVices.id === deviceStatus.deviceId &&
-                      deviceStatus.deviceId
-                        .toString("")
-                        .indexOf(searchFilter) !== -1
+                      deviceStatus.active.indexOf(searchFilter) !== -1
                     );
                   }
                 });
                 console.log(2222, matchId);
                 const linkThem = matchId.map(together => {
-                  console.log(4444, together);
+                  console.log(4444, together.deviceId);
                   return (
                     <div className="camera-container" key={together.deviceId}>
                       <div className="pic-capsule">
                         <img src={together.thumbnail} alt="" />
                       </div>
                       <div className="status-n-name">
-                        <div class={together.active ? "active" : "inactive"}>
+                        <div
+                          className={together.active ? "active" : "inactive"}
+                        >
                           <h3>{together.active ? "Active" : "Inactive"}</h3>
                           <h1>{dVices.name}</h1>
                         </div>
