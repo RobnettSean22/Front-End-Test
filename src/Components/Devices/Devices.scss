@@ -18,7 +18,9 @@ body {
   .search {
     width: 60%;
     height: 20%;
-
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background: orange;
   }
   .grid-enclosure {

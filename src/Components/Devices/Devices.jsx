@@ -10,7 +10,9 @@ class Devices extends Component {
       devicesInventory: [],
       statusInventory: [],
       searchFilter: "",
-      byName: true
+      byName: "name",
+      byStatus: "status",
+      byId: "id"
     };
   }
   componentDidMount() {
@@ -32,14 +34,32 @@ class Devices extends Component {
     });
   }
 
+  changeToStatus() {
+    this.setState({
+      byName: "status"
+    });
+  }
+  changeToName() {
+    this.setState({
+      byName: "name"
+    });
+  }
+  changeToId() {
+    this.setState({
+      byName: "id"
+    });
+  }
+
   render() {
     const {
       deviceInventory,
       statusInventory,
       searchFilter,
-      byName
+      byName,
+      byStatus,
+      byId
     } = this.state;
-    console.log(deviceInventory, statusInventory);
+    console.log(8282, statusInventory);
 
     return (
       <div className="enclosure">
@@ -49,7 +69,14 @@ class Devices extends Component {
             value={searchFilter}
             onChange={e => this.setState({ searchFilter: e.target.value })}
           />
+          <select className="">
+            <option value="">Search Method</option>
+            <option value={byName}>By Name</option>
+            <option value={byStatus}>By Status</option>
+            <option value={byId}>By Id</option>
+          </select>
         </div>
+
         <div className="grid-enclosure">
           <div className="camera-capsule">
             {statusInventory.length > 1 &&
@@ -62,10 +89,17 @@ class Devices extends Component {
                         .toUpperCase()
                         .indexOf(searchFilter.toUpperCase()) !== -1
                     );
+                  } else if (byStatus) {
+                    return (
+                      dVices.id === deviceStatus.deviceId &&
+                      deviceStatus.active.indexOf(searchFilter) !== -1
+                    );
                   } else {
                     return (
                       dVices.id === deviceStatus.deviceId &&
-                      deviceStatus.active.indexOf() !== -1
+                      deviceStatus.deviceId
+                        .toString("")
+                        .indexOf(searchFilter) !== -1
                     );
                   }
                 });
