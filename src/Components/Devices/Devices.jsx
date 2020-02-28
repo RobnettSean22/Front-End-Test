@@ -35,7 +35,7 @@ class Devices extends Component {
 
   sortBy() {
     this.setState({
-      statusInventory: this.response.data.sort()
+      statusInventory: this.status.sort()
     });
   }
 
