@@ -65,11 +65,12 @@ class Devices extends Component {
         <div className="title">Your Camera</div>
         <div className="search">
           <input
+            placeholder="Search by Name or Id"
             value={searchFilter}
             onChange={e => this.setState({ searchFilter: e.target.value })}
           />
           <div>
-            <div>Search Method</div>
+            <div>Sort ...</div>
             <div onClick={this.changeToName}>By Name</div>
             <div onClick={this.changeToStatus}>By Status</div>
             <div onClick={this.changeToId}>By Id</div>
@@ -81,22 +82,15 @@ class Devices extends Component {
             {statusInventory.length > 1 &&
               deviceInventory.map(dVices => {
                 const matchId = statusInventory.filter(deviceStatus => {
-                  if (method === "name") {
-                    return (
-                      dVices.id === deviceStatus.deviceId &&
+                  return (
+                    (dVices.id === deviceStatus.deviceId &&
                       dVices.name
                         .toUpperCase()
-                        .indexOf(searchFilter.toUpperCase()) !== -1
-                    );
-                  } else if (method === "id") {
-                    return (
-                      dVices.id === deviceStatus.deviceId &&
+                        .indexOf(searchFilter.toUpperCase()) !== -1) ||
+                    (dVices.id === deviceStatus.deviceId &&
                       deviceStatus.deviceId.toString().indexOf(searchFilter) !==
-                        -1
-                    );
-                  } else {
-                    return dVices.id === deviceStatus.deviceId;
-                  }
+                        -1)
+                  );
                 });
                 console.log(2222, matchId);
                 const linkThem = matchId.map(together => {
