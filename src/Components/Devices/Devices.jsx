@@ -69,16 +69,10 @@ class Devices extends Component {
             onChange={e => this.setState({ searchFilter: e.target.value })}
           />
           <div>
-            <div value="">Search Method</div>
-            <div value={method} onClick={this.changeToName}>
-              By Name
-            </div>
-            <div value={method} onClick={this.changeToStatus}>
-              By Status
-            </div>
-            <div value={method} onclick={this.changeToId}>
-              By Id
-            </div>
+            <div>Search Method</div>
+            <div onClick={this.changeToName}>By Name</div>
+            <div onClick={this.changeToStatus}>By Status</div>
+            <div onClick={this.changeToId}>By Id</div>
           </div>
         </div>
 
@@ -101,10 +95,7 @@ class Devices extends Component {
                         -1
                     );
                   } else {
-                    return (
-                      dVices.id === deviceStatus.deviceId &&
-                      deviceStatus.active.indexOf(searchFilter) !== -1
-                    );
+                    return dVices.id === deviceStatus.deviceId;
                   }
                 });
                 console.log(2222, matchId);
