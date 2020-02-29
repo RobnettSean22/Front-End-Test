@@ -9,9 +9,9 @@ class Devices extends Component {
     this.state = {
       devicesInventory: [],
       statusInventory: [],
-      searchFilter: "",
-      method: "name"
+      searchFilter: ""
     };
+    this.toggleByName = this.toggleByName.bind(this);
   }
   componentDidMount() {
     this.viewAllDevices();
@@ -32,6 +32,14 @@ class Devices extends Component {
     });
   }
 
+  toggleByName() {
+    this.setState({
+      deviceInventory: this.response.data.devices.sort(
+        (a, b) => a.name > b.name
+      )
+    });
+  }
+
   render() {
     const { deviceInventory, statusInventory, searchFilter } = this.state;
     console.log(8282, statusInventory.deviceId);
@@ -47,7 +55,7 @@ class Devices extends Component {
           />
           <div>
             <div>Sort ...</div>
-            <div>By Name</div>
+            <div onClick={this.toggleByName}>By Name</div>
             <div>By Status</div>
             <div>By Id</div>
           </div>
