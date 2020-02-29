@@ -48,8 +48,8 @@ class Devices extends Component {
           <div>
             <div>Sort ...</div>
             <div>By Name</div>
-            <div onClick={this.changeToStatus}>By Status</div>
-            <div onClick={this.changeToId}>By Id</div>
+            <div>By Status</div>
+            <div>By Id</div>
           </div>
         </div>
 
