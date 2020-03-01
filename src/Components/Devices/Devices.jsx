@@ -7,11 +7,18 @@ class Devices extends Component {
     super(props);
 
     this.state = {
-      devicesInventory: [],
+      deviceInventory: [],
       statusInventory: [],
-      searchFilter: ""
+      searchFilter: "",
+
+      camId: false,
+      camConnect: false
     };
-    this.toggleByName = this.toggleByName.bind(this);
+    // this.toggleByName = this.toggleByName.bind(this);
+    // this.toggleById = this.toggleById.bind(this);
+    this.connectSwitch = this.connectSwitch.bind(this);
+    this.idSwitch = this.idSwitch.bind(this);
+    this.nameSwitch = this.nameSwitch.bind(this);
   }
   componentDidMount() {
     this.viewAllDevices();
@@ -22,6 +29,7 @@ class Devices extends Component {
       this.setState({
         deviceInventory: response.data.devices
       });
+      console.log(3030, this.state.deviceInventory);
     });
   }
   viewAllStatus() {
@@ -32,17 +40,49 @@ class Devices extends Component {
     });
   }
 
-  toggleByName() {
+  // toggleById() {
+  //   this.setState({
+  //     deviceInventory: this.state.deviceInventory.sort((a, b) => a.id > b.id)
+  //   });
+  // }
+  // toggleByName() {
+  //   this.setState({
+  //     deviceInventory: this.state.deviceInventory.sort(
+  //       (a, b) => a.name > b.name
+  //     )
+  //   });
+  //   console.log(9001, this.state.deviceInventory.name);
+  // }
+
+  idSwitch = () => {
     this.setState({
-      deviceInventory: this.response.data.devices.sort(
-        (a, b) => a.name > b.name
-      )
+      camId: true,
+      camConnect: false
+    });
+  };
+
+  connectSwitch = () => {
+    this.setState({
+      camId: false,
+      camConnect: true
+    });
+  };
+  nameSwitch() {
+    this.setState({
+      camId: false,
+      camConnect: false
     });
   }
 
   render() {
-    const { deviceInventory, statusInventory, searchFilter } = this.state;
-    console.log(8282, statusInventory.deviceId);
+    const {
+      deviceInventory,
+      statusInventory,
+      searchFilter,
+      camConnect,
+      camId
+    } = this.state;
+    console.log(8282, statusInventory, deviceInventory.devices);
 
     return (
       <div className="enclosure">
@@ -54,10 +94,9 @@ class Devices extends Component {
             onChange={e => this.setState({ searchFilter: e.target.value })}
           />
           <div>
-            <div>Sort ...</div>
-            <div onClick={this.toggleByName}>By Name</div>
-            <div>By Status</div>
-            <div>By Id</div>
+            <div onClick={this.nameSwitch}>By Name</div>
+            <div onClick={this.connectSwitch}>By Status</div>
+            <div onClick={this.idSwitch}>By Id</div>
           </div>
         </div>
 
@@ -77,26 +116,75 @@ class Devices extends Component {
                   );
                 });
                 console.log(2222, matchId);
-                const linkThem = matchId.map(together => {
-                  console.log(4444, together.deviceId);
-                  return (
-                    <div className="camera-container" key={together.deviceId}>
-                      <div className="pic-capsule">
-                        <img src={together.thumbnail} alt="" />
-                      </div>
-                      <div className="status-n-name">
-                        <div
-                          className={together.active ? "active" : "inactive"}
-                        >
-                          <h3>{together.active ? "Active" : "Inactive"}</h3>
-                          <h1>{dVices.name}</h1>
+                if (camId) {
+                  const forId = matchId
+                    .sort((a, b) => a.deviceId > b.deviceId)
+                    .map((order, index) => {
+                      return (
+                        <div className="camera-container" key={index}>
+                          <div className="pic-capsule">
+                            <img src={order.thumbnail} alt="" />
+                          </div>
+                          <div className="status-n-name">
+                            <div
+                              className={order.active ? "active" : "inactive"}
+                            >
+                              <h3>{order.active ? "Active" : "Inactive"}</h3>
+                              <h1>{dVices.name}</h1>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                  );
-                });
-
-                return linkThem;
+                      );
+                    });
+                  return forId;
+                } else if (camConnect) {
+                  const forActive = matchId
+                    .sort((a, b) => a.active > b.active)
+                    .map((activeOrder, index) => {
+                      return (
+                        <div className="camera-container" key={index}>
+                          <div className="pic-capsule">
+                            <img src={activeOrder.thumbnail} alt="" />
+                          </div>
+                          <div className="status-n-name">
+                            <div
+                              className={
+                                activeOrder.active ? "active" : "inactive"
+                              }
+                            >
+                              <h3>
+                                {activeOrder.active ? "Active" : "Inactive"}
+                              </h3>
+                              <h1>{dVices.name}</h1>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    });
+                  return forActive;
+                } else {
+                  const forName = matchId
+                    .sort((a, b) => a.name > b.name)
+                    .map((together, index) => {
+                      console.log(4444, together);
+                      return (
+                        <div className="camera-container" key={index}>
+                          <div className="pic-capsule">
+                            <img src={matchId.thumbnail} alt="" />
+                          </div>
+                          <div className="status-n-name">
+                            <div
+                              className={matchId.active ? "active" : "inactive"}
+                            >
+                              <h3>{matchId.active ? "Active" : "Inactive"}</h3>
+                              <h1>{together.name}</h1>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    });
+                  return forName;
+                }
               })}
           </div>
         </div>
