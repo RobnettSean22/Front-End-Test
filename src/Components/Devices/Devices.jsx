@@ -58,9 +58,8 @@ class Devices extends Component {
     this.setState({
       camId: true,
       camConnect: false,
-      statusInventory: this.state.statusInventory.sort(
-        (a, b) => b.deviceId - a.deviceId
-      )
+
+      deviceInventory: this.state.deviceInventory.sort((a, b) => b.id - a.id)
     });
     console.log(1111, this.state.statusInventory);
   };
@@ -79,7 +78,10 @@ class Devices extends Component {
     this.setState({
       camId: false,
       camConnect: false,
-      deviceInventory: this.state.deviceInventory.sort((a, b) => b.id - a.id)
+      deviceInventory: this.state.deviceInventory.sort((a, b) => {
+        const abc = this.state.camID && this.state.camConnect ? -1 : 1;
+        return abc * a.name.localeCompare(b.name);
+      })
     });
     console.log(123, this.state.deviceInventory);
   }
@@ -117,7 +119,7 @@ class Devices extends Component {
               deviceInventory.map(dVices => {
                 const matchId = statusInventory.filter(deviceStatus => {
                   return (
-                    (dVices.id === deviceStatus.deviceId &&
+                    (deviceStatus.deviceId === dVices.id &&
                       dVices.name
                         .toUpperCase()
                         .indexOf(searchFilter.toUpperCase()) !== -1) ||
@@ -155,9 +157,12 @@ class Devices extends Component {
                 } else if (camConnect) {
                   const forActive = matchId
                     .sort((a, b) => a.active > b.active)
-                    .map((activeOrder, index) => {
+                    .map(activeOrder => {
                       return (
-                        <div className="camera-container" key={index}>
+                        <div
+                          className="camera-container"
+                          key={activeOrder.deviceId}
+                        >
                           <div className="pic-capsule">
                             <img src={activeOrder.thumbnail} alt="" />
                           </div>
@@ -181,7 +186,7 @@ class Devices extends Component {
                   const forName = matchId.map(together => {
                     console.log(4444, together);
                     return (
-                      <div className="camera-container" key={dVices.name}>
+                      <div className="camera-container" key={dVices.id}>
                         <div className="pic-capsule">
                           <img src={together.thumbnail} alt="" />
                         </div>
