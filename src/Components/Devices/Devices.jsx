@@ -27,9 +27,7 @@ class Devices extends Component {
   viewAllDevices() {
     axios.get("/api/all_devices").then(response => {
       this.setState({
-        deviceInventory: response.data.devices.sort((a, b) => {
-          return a.name - b.name;
-        })
+        deviceInventory: response.data.devices
       });
       console.log(3030, this.state.deviceInventory);
     });
@@ -59,26 +57,32 @@ class Devices extends Component {
   idSwitch = () => {
     this.setState({
       camId: true,
-      camConnect: false
+      camConnect: false,
+      statusInventory: this.state.statusInventory.sort(
+        (a, b) => b.deviceId - a.deviceId
+      )
     });
+    console.log(1111, this.state.statusInventory);
   };
 
   connectSwitch = () => {
     this.setState({
       camId: false,
-      camConnect: true
+      camConnect: true,
+      statusInventory: this.state.statusInventory.sort(
+        (a, b) => b.active - a.active
+      )
     });
+    console.log(2222, this.state.statusInventory);
   };
   nameSwitch() {
     this.setState({
       camId: false,
-      camConnect: false
+      camConnect: false,
+      deviceInventory: this.state.deviceInventory.sort((a, b) => b.id - a.id)
     });
+    console.log(123, this.state.deviceInventory);
   }
-
-  compare = (a, b) => {
-    return a - b;
-  };
 
   render() {
     const {
@@ -88,7 +92,7 @@ class Devices extends Component {
       camConnect,
       camId
     } = this.state;
-    const { compare } = this;
+
     console.log(8282, statusInventory, deviceInventory.devices);
 
     return (
@@ -126,11 +130,12 @@ class Devices extends Component {
                 if (camId) {
                   const forId = matchId
                     .sort((a, b) => {
-                      return a.deviceId > b.deviceId;
+                      return b.deviceId - a.deviceId;
                     })
-                    .map((order, index) => {
+
+                    .map(order => {
                       return (
-                        <div className="camera-container" key={index}>
+                        <div className="camera-container" key={order.deviceId}>
                           <div className="pic-capsule">
                             <img src={order.thumbnail} alt="" />
                           </div>
@@ -145,6 +150,7 @@ class Devices extends Component {
                         </div>
                       );
                     });
+
                   return forId;
                 } else if (camConnect) {
                   const forActive = matchId
@@ -172,29 +178,24 @@ class Devices extends Component {
                     });
                   return forActive;
                 } else {
-                  const forName = matchId
-                    .sort()
-
-                    .map((together, index) => {
-                      console.log(4444, together);
-                      return (
-                        <div className="camera-container" key={index}>
-                          <div className="pic-capsule">
-                            <img src={together.thumbnail} alt="" />
-                          </div>
-                          <div className="status-n-name">
-                            <div
-                              className={
-                                together.active ? "active" : "inactive"
-                              }
-                            >
-                              <h3>{together.active ? "Active" : "Inactive"}</h3>
-                              <h1>{dVices.name}</h1>
-                            </div>
+                  const forName = matchId.map(together => {
+                    console.log(4444, together);
+                    return (
+                      <div className="camera-container" key={dVices.name}>
+                        <div className="pic-capsule">
+                          <img src={together.thumbnail} alt="" />
+                        </div>
+                        <div className="status-n-name">
+                          <div
+                            className={together.active ? "active" : "inactive"}
+                          >
+                            <h3>{together.active ? "Active" : "Inactive"}</h3>
+                            <h1>{dVices.name}</h1>
                           </div>
                         </div>
-                      );
-                    });
+                      </div>
+                    );
+                  });
                   return forName;
                 }
               })}
