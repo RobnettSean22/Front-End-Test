@@ -69,7 +69,7 @@ class Devices extends Component {
       camId: false,
       camConnect: true,
       statusInventory: this.state.statusInventory.sort(
-        (a, b) => b.active - a.active
+        (a, b) => a.active - b.active
       )
     });
     console.log(2222, this.state.statusInventory);
@@ -155,32 +155,30 @@ class Devices extends Component {
 
                   return forId;
                 } else if (camConnect) {
-                  const forActive = matchId
-                    .sort((a, b) => a.active > b.active)
-                    .map(activeOrder => {
-                      return (
-                        <div
-                          className="camera-container"
-                          key={activeOrder.deviceId}
-                        >
-                          <div className="pic-capsule">
-                            <img src={activeOrder.thumbnail} alt="" />
-                          </div>
-                          <div className="status-n-name">
-                            <div
-                              className={
-                                activeOrder.active ? "active" : "inactive"
-                              }
-                            >
-                              <h3>
-                                {activeOrder.active ? "Active" : "Inactive"}
-                              </h3>
-                              <h1>{dVices.name}</h1>
-                            </div>
+                  const forActive = matchId.map(activeOrder => {
+                    return (
+                      <div
+                        className="camera-container"
+                        key={activeOrder.deviceId}
+                      >
+                        <div className="pic-capsule">
+                          <img src={activeOrder.thumbnail} alt="" />
+                        </div>
+                        <div className="status-n-name">
+                          <div
+                            className={
+                              activeOrder.active ? "active" : "inactive"
+                            }
+                          >
+                            <h3>
+                              {activeOrder.active ? "Active" : "Inactive"}
+                            </h3>
+                            <h1>{dVices.name}</h1>
                           </div>
                         </div>
-                      );
-                    });
+                      </div>
+                    );
+                  });
                   return forActive;
                 } else {
                   const forName = matchId.map(together => {
