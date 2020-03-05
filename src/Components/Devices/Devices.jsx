@@ -11,13 +11,21 @@ class Devices extends Component {
       statusInventory: [],
       searchFilter: "",
 
-      camId: false,
-      camConnect: false
+      camConnect: false,
+      reverseId: false,
+      reverseConnect: false,
+      reverseName: false
     };
 
     this.connectSwitch = this.connectSwitch.bind(this);
     this.idSwitch = this.idSwitch.bind(this);
     this.nameSwitch = this.nameSwitch.bind(this);
+    this.connectReverse = this.connectReverse.bind(this);
+    this.idReverse = this.idReverse.bind(this);
+    this.nameReverse = this.nameReverse.bind(this);
+    this.connectBackTo = this.connectBackTo.bind(this);
+    this.idBackTo = this.idBackTo.bind(this);
+    this.nameBackTo = this.nameBackTo.bind(this);
   }
   componentDidMount() {
     this.viewAllDevices();
@@ -28,7 +36,6 @@ class Devices extends Component {
       this.setState({
         deviceInventory: response.data.devices
       });
-      console.log(3030, this.state.deviceInventory);
     });
   }
   viewAllStatus() {
@@ -41,34 +48,70 @@ class Devices extends Component {
 
   idSwitch = () => {
     this.setState({
-      camId: true,
       camConnect: false,
 
-      deviceInventory: this.state.deviceInventory.sort((a, b) => b.id - a.id)
+      deviceInventory: this.state.deviceInventory.sort((a, b) => a.id - b.id)
     });
-    console.log(1111, this.state.statusInventory);
   };
 
   connectSwitch = () => {
     this.setState({
-      camId: false,
       camConnect: true,
       statusInventory: this.state.statusInventory.sort(
-        (a, b) => a.active - b.active
+        (a, b) => b.active - a.active
       )
     });
-    console.log(2222, this.state.statusInventory);
   };
   nameSwitch() {
     this.setState({
-      camId: false,
       camConnect: false,
       deviceInventory: this.state.deviceInventory.sort((a, b) => {
         const abc = this.state.camID && this.state.camConnect ? -1 : 1;
         return abc * a.name.localeCompare(b.name);
       })
     });
-    console.log(123, this.state.deviceInventory);
+  }
+  idReverse = () => {
+    this.setState({
+      deviceInventory: this.state.deviceInventory.sort((a, b) => b.id - a.id)
+    });
+  };
+
+  connectReverse = () => {
+    this.setState({
+      statusInventory: this.state.statusInventory.sort(
+        (a, b) => a.active - b.active
+      )
+    });
+  };
+  nameReverse() {
+    this.setState({
+      deviceInventory: this.state.deviceInventory.sort((a, b) => {
+        const abc = this.state.camID && this.state.camConnect ? -1 : 1;
+        return abc * b.name.localeCompare(a.name);
+      })
+    });
+  }
+  idBackTo = () => {
+    this.setState({
+      deviceInventory: this.state.deviceInventory.sort((a, b) => a.id - b.id)
+    });
+  };
+
+  connectBackTo = () => {
+    this.setState({
+      statusInventory: this.state.statusInventory.sort(
+        (a, b) => b.active - a.active
+      )
+    });
+  };
+  nameBackTo() {
+    this.setState({
+      deviceInventory: this.state.deviceInventory.sort((a, b) => {
+        const abc = this.state.camID && this.state.camConnect ? -1 : 1;
+        return abc * a.name.localeCompare(b.name);
+      })
+    });
   }
 
   render() {
@@ -90,10 +133,18 @@ class Devices extends Component {
             value={searchFilter}
             onChange={e => this.setState({ searchFilter: e.target.value })}
           />
-          <div>
+          <div className="toggle">
             <div onClick={this.nameSwitch}>By Name</div>
             <div onClick={this.connectSwitch}>By Status</div>
             <div onClick={this.idSwitch}>By Id</div>
+          </div>
+          <div className="reverse">
+            <button onClick={this.idBackTo}>Acending</button>
+            <button onClick={this.nameBackTo}>A-Z</button>
+            <button onClick={this.connectBackTo}>Active-Inactive</button>
+            <button onClick={this.idReverse}>Decending</button>
+            <button onClick={this.nameReverse}>Z-A</button>
+            <button onClick={this.connectReverse}>Inactive-Active</button>
           </div>
         </div>
 
@@ -113,7 +164,6 @@ class Devices extends Component {
                         -1)
                   );
                 });
-                console.log(2222, matchId);
 
                 const mapMatched = matchId.map(order => {
                   return (
@@ -147,7 +197,6 @@ class Devices extends Component {
                         -1)
                   );
                 });
-                console.log(2222, matchId);
 
                 const mapMatched = matchId.map(order => {
                   return (
