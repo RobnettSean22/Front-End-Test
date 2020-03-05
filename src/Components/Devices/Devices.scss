@@ -24,6 +24,15 @@ body {
     align-items: center;
     background: orange;
     margin: 1%;
+    input {
+    }
+    .toggle {
+    }
+    .reverse {
+      .hidden {
+        display: none;
+      }
+    }
   }
   .grid-enclosure {
     width: 60%;
