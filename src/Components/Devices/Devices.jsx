@@ -87,13 +87,7 @@ class Devices extends Component {
   }
 
   render() {
-    const {
-      deviceInventory,
-      statusInventory,
-      searchFilter,
-      camConnect,
-      camId
-    } = this.state;
+    const { deviceInventory, statusInventory, searchFilter } = this.state;
 
     console.log(8282, statusInventory, deviceInventory.devices);
 
@@ -129,78 +123,29 @@ class Devices extends Component {
                   );
                 });
                 console.log(2222, matchId);
-                if (camId) {
-                  const forId = matchId
-                    .sort((a, b) => {
-                      return b.deviceId - a.deviceId;
-                    })
 
-                    .map(order => {
-                      return (
-                        <div className="camera-container" key={order.deviceId}>
-                          <div className="pic-capsule">
-                            <img src={order.thumbnail} alt="" />
-                          </div>
-                          <div className="status-n-name">
-                            <div
-                              className={order.active ? "active" : "inactive"}
-                            >
-                              <h3>{order.active ? "Active" : "Inactive"}</h3>
-                              <h1>{dVices.name}</h1>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    });
+                const forId = matchId
+                  .sort((a, b) => {
+                    return b.deviceId - a.deviceId;
+                  })
 
-                  return forId;
-                } else if (camConnect) {
-                  const forActive = matchId.map(activeOrder => {
+                  .map(order => {
                     return (
-                      <div
-                        className="camera-container"
-                        key={activeOrder.deviceId}
-                      >
+                      <div className="camera-container" key={order.deviceId}>
                         <div className="pic-capsule">
-                          <img src={activeOrder.thumbnail} alt="" />
+                          <img src={order.thumbnail} alt="" />
                         </div>
                         <div className="status-n-name">
-                          <div
-                            className={
-                              activeOrder.active ? "active" : "inactive"
-                            }
-                          >
-                            <h3>
-                              {activeOrder.active ? "Active" : "Inactive"}
-                            </h3>
+                          <div className={order.active ? "active" : "inactive"}>
+                            <h3>{order.active ? "Active" : "Inactive"}</h3>
                             <h1>{dVices.name}</h1>
                           </div>
                         </div>
                       </div>
                     );
                   });
-                  return forActive;
-                } else {
-                  const forName = matchId.map(together => {
-                    console.log(4444, together);
-                    return (
-                      <div className="camera-container" key={dVices.id}>
-                        <div className="pic-capsule">
-                          <img src={together.thumbnail} alt="" />
-                        </div>
-                        <div className="status-n-name">
-                          <div
-                            className={together.active ? "active" : "inactive"}
-                          >
-                            <h3>{together.active ? "Active" : "Inactive"}</h3>
-                            <h1>{dVices.name}</h1>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  });
-                  return forName;
-                }
+
+                return forId;
               })}
           </div>
         </div>
