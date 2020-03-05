@@ -50,6 +50,8 @@ class Devices extends Component {
     this.setState({
       camConnect: false,
       reverseId: false,
+      reverseConnect: null,
+      reverseName: null,
 
       deviceInventory: this.state.deviceInventory.sort((a, b) => a.id - b.id)
     });
@@ -58,6 +60,9 @@ class Devices extends Component {
   connectSwitch = () => {
     this.setState({
       camConnect: true,
+      reverseConnect: false,
+      reverseId: null,
+      reverseName: null,
       statusInventory: this.state.statusInventory.sort(
         (a, b) => b.active - a.active
       )
@@ -66,6 +71,9 @@ class Devices extends Component {
   nameSwitch() {
     this.setState({
       camConnect: false,
+      reverseName: false,
+      reverseId: null,
+      reverseConnect: null,
       deviceInventory: this.state.deviceInventory.sort((a, b) => {
         const abc = this.state.camID && this.state.camConnect ? -1 : 1;
         return abc * a.name.localeCompare(b.name);
@@ -74,12 +82,14 @@ class Devices extends Component {
   }
   idReverse = () => {
     this.setState({
+      reverseId: true,
       deviceInventory: this.state.deviceInventory.sort((a, b) => b.id - a.id)
     });
   };
 
   connectReverse = () => {
     this.setState({
+      reverseConnect: true,
       statusInventory: this.state.statusInventory.sort(
         (a, b) => a.active - b.active
       )
@@ -87,6 +97,7 @@ class Devices extends Component {
   };
   nameReverse() {
     this.setState({
+      reverseName: true,
       deviceInventory: this.state.deviceInventory.sort((a, b) => {
         const abc = this.state.camID && this.state.camConnect ? -1 : 1;
         return abc * b.name.localeCompare(a.name);
@@ -95,12 +106,14 @@ class Devices extends Component {
   }
   idBackTo = () => {
     this.setState({
+      reverseId: false,
       deviceInventory: this.state.deviceInventory.sort((a, b) => a.id - b.id)
     });
   };
 
   connectBackTo = () => {
     this.setState({
+      reverseConnect: false,
       statusInventory: this.state.statusInventory.sort(
         (a, b) => b.active - a.active
       )
@@ -108,6 +121,7 @@ class Devices extends Component {
   };
   nameBackTo() {
     this.setState({
+      reverseName: false,
       deviceInventory: this.state.deviceInventory.sort((a, b) => {
         const abc = this.state.camID && this.state.camConnect ? -1 : 1;
         return abc * a.name.localeCompare(b.name);
@@ -144,37 +158,37 @@ class Devices extends Component {
           </div>
           <div className="reverse">
             <button
-              className={reverseId === false ? "show" : "hidden"}
+              className={reverseId === true ? "show" : "hidden"}
               onClick={this.idBackTo}
             >
               Acending
             </button>
             <button
-              className={reverseName === false ? "show" : "hidden"}
+              className={reverseName === true ? "show" : "hidden"}
               onClick={this.nameBackTo}
             >
               A-Z
             </button>
             <button
-              className={reverseConnect === false ? "show" : "hidden"}
+              className={reverseConnect === true ? "show" : "hidden"}
               onClick={this.connectBackTo}
             >
               Active-Inactive
             </button>
             <button
-              className={reverseId === true ? "show" : "hidden"}
+              className={reverseId === false ? "show" : "hidden"}
               onClick={this.idReverse}
             >
               Decending
             </button>
             <button
-              className={reverseName === true ? "show" : "hidden"}
+              className={reverseName === false ? "show" : "hidden"}
               onClick={this.nameReverse}
             >
               Z-A
             </button>
             <button
-              className={reverseConnect === true ? "show" : "hidden"}
+              className={reverseConnect === false ? "show" : "hidden"}
               onClick={this.connectReverse}
             >
               Inactive-Active
