@@ -14,8 +14,7 @@ class Devices extends Component {
       camId: false,
       camConnect: false
     };
-    // this.toggleByName = this.toggleByName.bind(this);
-    // this.toggleById = this.toggleById.bind(this);
+
     this.connectSwitch = this.connectSwitch.bind(this);
     this.idSwitch = this.idSwitch.bind(this);
     this.nameSwitch = this.nameSwitch.bind(this);
@@ -39,20 +38,6 @@ class Devices extends Component {
       });
     });
   }
-
-  // toggleById() {
-  //   this.setState({
-  //     deviceInventory: this.state.deviceInventory.sort((a, b) => a.id > b.id)
-  //   });
-  // }
-  // toggleByName() {
-  //   this.setState({
-  //     deviceInventory: this.state.deviceInventory.sort(
-  //       (a, b) => a.name > b.name
-  //     )
-  //   });
-  //   console.log(9001, this.state.deviceInventory.name);
-  // }
 
   idSwitch = () => {
     this.setState({
@@ -87,7 +72,12 @@ class Devices extends Component {
   }
 
   render() {
-    const { deviceInventory, statusInventory, searchFilter } = this.state;
+    const {
+      deviceInventory,
+      statusInventory,
+      searchFilter,
+      camConnect
+    } = this.state;
 
     console.log(8282, statusInventory, deviceInventory.devices);
 
@@ -110,6 +100,7 @@ class Devices extends Component {
         <div className="grid-enclosure">
           <div className="camera-capsule">
             {statusInventory.length > 1 &&
+              camConnect === false &&
               deviceInventory.map(dVices => {
                 const matchId = statusInventory.filter(deviceStatus => {
                   return (
@@ -124,28 +115,61 @@ class Devices extends Component {
                 });
                 console.log(2222, matchId);
 
-                const forId = matchId
-                  .sort((a, b) => {
-                    return b.deviceId - a.deviceId;
-                  })
-
-                  .map(order => {
-                    return (
-                      <div className="camera-container" key={order.deviceId}>
-                        <div className="pic-capsule">
-                          <img src={order.thumbnail} alt="" />
-                        </div>
-                        <div className="status-n-name">
-                          <div className={order.active ? "active" : "inactive"}>
-                            <h3>{order.active ? "Active" : "Inactive"}</h3>
-                            <h1>{dVices.name}</h1>
-                          </div>
+                const mapMatched = matchId.map(order => {
+                  return (
+                    <div className="camera-container" key={order.deviceId}>
+                      <div className="pic-capsule">
+                        <img src={order.thumbnail} alt="" />
+                      </div>
+                      <div className="status-n-name">
+                        <div className={order.active ? "active" : "inactive"}>
+                          <h3>{order.active ? "Active" : "Inactive"}</h3>
+                          <h1>{dVices.name}</h1>
                         </div>
                       </div>
-                    );
-                  });
+                    </div>
+                  );
+                });
 
-                return forId;
+                return mapMatched;
+              })}
+            {deviceInventory.length > 1 &&
+              camConnect === true &&
+              statusInventory.map(deviceStatus => {
+                const matchId = deviceInventory.filter(dVices => {
+                  return (
+                    (deviceStatus.deviceId === dVices.id &&
+                      dVices.name
+                        .toUpperCase()
+                        .indexOf(searchFilter.toUpperCase()) !== -1) ||
+                    (dVices.id === deviceStatus.deviceId &&
+                      deviceStatus.deviceId.toString().indexOf(searchFilter) !==
+                        -1)
+                  );
+                });
+                console.log(2222, matchId);
+
+                const mapMatched = matchId.map(order => {
+                  return (
+                    <div className="camera-container" key={order.id}>
+                      <div className="pic-capsule">
+                        <img src={deviceStatus.thumbnail} alt="" />
+                      </div>
+                      <div className="status-n-name">
+                        <div
+                          className={
+                            deviceStatus.active ? "active" : "inactive"
+                          }
+                        >
+                          <h3>{deviceStatus.active ? "Active" : "Inactive"}</h3>
+                          <h1>{order.name}</h1>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                });
+
+                return mapMatched;
               })}
           </div>
         </div>
