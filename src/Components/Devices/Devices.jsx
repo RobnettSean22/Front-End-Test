@@ -14,7 +14,8 @@ class Devices extends Component {
       camConnect: false,
       reverseId: null,
       reverseConnect: null,
-      reverseName: null
+      reverseName: null,
+      popUp: "closed"
     };
 
     this.connectSwitch = this.connectSwitch.bind(this);
@@ -52,6 +53,7 @@ class Devices extends Component {
       reverseId: false,
       reverseConnect: null,
       reverseName: null,
+      popUp: "closed",
 
       deviceInventory: this.state.deviceInventory.sort((a, b) => a.id - b.id)
     });
@@ -63,6 +65,7 @@ class Devices extends Component {
       reverseConnect: false,
       reverseId: null,
       reverseName: null,
+      popUp: "closed",
       statusInventory: this.state.statusInventory.sort(
         (a, b) => b.active - a.active
       )
@@ -74,6 +77,7 @@ class Devices extends Component {
       reverseName: false,
       reverseId: null,
       reverseConnect: null,
+      popUp: "closed",
       deviceInventory: this.state.deviceInventory.sort((a, b) => {
         const abc = this.state.camID && this.state.camConnect ? -1 : 1;
         return abc * a.name.localeCompare(b.name);
@@ -128,6 +132,11 @@ class Devices extends Component {
       })
     });
   }
+  popUpControll = () => {
+    this.setState({
+      popUp: "open"
+    });
+  };
 
   render() {
     const {
@@ -137,7 +146,8 @@ class Devices extends Component {
       camConnect,
       reverseId,
       reverseName,
-      reverseConnect
+      reverseConnect,
+      popUp
     } = this.state;
 
     console.log(8282, statusInventory, deviceInventory.devices);
@@ -152,9 +162,12 @@ class Devices extends Component {
             onChange={e => this.setState({ searchFilter: e.target.value })}
           />
           <div className="toggle">
-            <div onClick={this.nameSwitch}>By Name</div>
-            <div onClick={this.connectSwitch}>By Status</div>
-            <div onClick={this.idSwitch}>By Id</div>
+            <div onClick={this.popUpControll}> Sort By...</div>
+            <div className={popUp === "open" ? "popup-contain" : "hidden"}>
+              <div onClick={this.nameSwitch}>By Name</div>
+              <div onClick={this.connectSwitch}>By Status</div>
+              <div onClick={this.idSwitch}>By Id</div>
+            </div>
           </div>
           <div className="reverse">
             <button
