@@ -154,7 +154,10 @@ class Devices extends Component {
 
     return (
       <div className="enclose">
-        <div className="title">Your Camera</div>
+        <div className="title">
+          <h4>Your Camera</h4>
+          <h5>Total devices: {statusInventory.length}</h5>
+        </div>
         <div className="search">
           <input
             placeholder="Search by Name or Id"
@@ -262,9 +265,9 @@ class Devices extends Component {
                   );
                 });
 
-                const mapMatched = matchId.map(order => {
+                const mapOn = matchId.map(order => {
                   return (
-                    <div>
+                    <div className="status-container">
                       <div
                         className={
                           deviceStatus.active ? "camera-container" : "hidden"
@@ -291,7 +294,7 @@ class Devices extends Component {
                   );
                 });
 
-                return mapMatched;
+                return mapOn;
               })}
           </div>
         </div>
