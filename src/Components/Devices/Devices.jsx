@@ -153,7 +153,7 @@ class Devices extends Component {
     console.log(8282, statusInventory, deviceInventory.devices);
 
     return (
-      <div className="enclosure">
+      <div className="enclose">
         <div className="title">Your Camera</div>
         <div className="search">
           <input
@@ -161,6 +161,45 @@ class Devices extends Component {
             value={searchFilter}
             onChange={e => this.setState({ searchFilter: e.target.value })}
           />
+
+          <div className="reverse">
+            <button
+              className={reverseId === true ? "show" : "hidden"}
+              onClick={this.idBackTo}
+            >
+              1 to 10
+            </button>
+            <button
+              className={reverseName === true ? "show" : "hidden"}
+              onClick={this.nameBackTo}
+            >
+              A to Z
+            </button>
+            <button
+              className={reverseConnect === true ? "show" : "hidden"}
+              onClick={this.connectBackTo}
+            >
+              On Off
+            </button>
+            <button
+              className={reverseId === false ? "show" : "hidden"}
+              onClick={this.idReverse}
+            >
+              10 to 1
+            </button>
+            <button
+              className={reverseName === false ? "show" : "hidden"}
+              onClick={this.nameReverse}
+            >
+              Z to A
+            </button>
+            <button
+              className={reverseConnect === false ? "show" : "hidden"}
+              onClick={this.connectReverse}
+            >
+              Off On
+            </button>
+          </div>
           <div className="toggle">
             <div onClick={this.popUpControll}> Sort By...</div>
             <div className={popUp === "open" ? "popup-contain" : "hidden"}>
@@ -168,44 +207,6 @@ class Devices extends Component {
               <div onClick={this.connectSwitch}>By Status</div>
               <div onClick={this.idSwitch}>By Id</div>
             </div>
-          </div>
-          <div className="reverse">
-            <button
-              className={reverseId === true ? "show" : "hidden"}
-              onClick={this.idBackTo}
-            >
-              Acending
-            </button>
-            <button
-              className={reverseName === true ? "show" : "hidden"}
-              onClick={this.nameBackTo}
-            >
-              A-Z
-            </button>
-            <button
-              className={reverseConnect === true ? "show" : "hidden"}
-              onClick={this.connectBackTo}
-            >
-              Active-Inactive
-            </button>
-            <button
-              className={reverseId === false ? "show" : "hidden"}
-              onClick={this.idReverse}
-            >
-              Decending
-            </button>
-            <button
-              className={reverseName === false ? "show" : "hidden"}
-              onClick={this.nameReverse}
-            >
-              Z-A
-            </button>
-            <button
-              className={reverseConnect === false ? "show" : "hidden"}
-              onClick={this.connectReverse}
-            >
-              Inactive-Active
-            </button>
           </div>
         </div>
 
