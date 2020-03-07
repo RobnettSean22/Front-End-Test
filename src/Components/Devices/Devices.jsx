@@ -264,18 +264,27 @@ class Devices extends Component {
 
                 const mapMatched = matchId.map(order => {
                   return (
-                    <div className="camera-container" key={order.id}>
-                      <div className="pic-capsule">
-                        <img src={deviceStatus.thumbnail} alt="" />
-                      </div>
-                      <div className="status-n-name">
-                        <div
-                          className={
-                            deviceStatus.active ? "active" : "inactive"
-                          }
-                        >
-                          <h3>{deviceStatus.active ? "Active" : "Inactive"}</h3>
-                          <h1>{order.name}</h1>
+                    <div>
+                      <div
+                        className={
+                          deviceStatus.active ? "camera-container" : "hidden"
+                        }
+                        key={deviceStatus.id}
+                      >
+                        <div className="pic-capsule">
+                          <img src={deviceStatus.thumbnail} alt="" />
+                        </div>
+                        <div className="status-n-name">
+                          <div
+                            className={
+                              deviceStatus.active ? "active" : "inactive"
+                            }
+                          >
+                            <h3>
+                              {deviceStatus.active ? "Active" : "Inactive"}
+                            </h3>
+                            <h1>{order.name}</h1>
+                          </div>
                         </div>
                       </div>
                     </div>
