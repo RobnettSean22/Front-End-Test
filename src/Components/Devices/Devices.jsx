@@ -201,7 +201,9 @@ class Devices extends Component {
             </button>
           </div>
           <div className="toggle">
-            <div onClick={this.popUpControll}> Sort By...</div>
+            <div onClick={this.popUpControll}>
+              <h4>Sort By...</h4>
+            </div>
             <div className={popUp === "open" ? "popup-contain" : "hidden"}>
               <div onClick={this.nameSwitch}>By Name</div>
               <div onClick={this.connectSwitch}>By Status</div>
