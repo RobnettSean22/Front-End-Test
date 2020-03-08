@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import "./Devices.scss";
 import axios from "axios";
-import camIcon from "./securty-cam.png";
+
+import searchIcon from "./Search.svg";
+import Logo from "./Logo.svg";
+import Sorting from "./Sorting.svg";
 
 class Devices extends Component {
   constructor(props) {
@@ -11,8 +14,8 @@ class Devices extends Component {
       deviceInventory: [],
       statusInventory: [],
       searchFilter: "",
+      sort: "none",
       camConnect: false,
-
       popUp: "closed"
     };
 
@@ -42,8 +45,7 @@ class Devices extends Component {
   idSwitch = () => {
     this.setState({
       camConnect: false,
-      reverseId: false,
-
+      sort: "id",
       popUp: "closed",
 
       deviceInventory: this.state.deviceInventory.sort((a, b) => a.id - b.id)
@@ -53,7 +55,7 @@ class Devices extends Component {
   connectSwitch = () => {
     this.setState({
       camConnect: true,
-
+      sort: "status",
       popUp: "closed",
       statusInventory: this.state.statusInventory.sort(
         (a, b) => b.active - a.active
@@ -63,7 +65,7 @@ class Devices extends Component {
   nameSwitch() {
     this.setState({
       camConnect: false,
-
+      sort: "name",
       popUp: "closed",
       deviceInventory: this.state.deviceInventory.sort((a, b) => {
         const abc = this.state.camID && this.state.camConnect ? -1 : 1;
@@ -89,7 +91,7 @@ class Devices extends Component {
       statusInventory,
       searchFilter,
       camConnect,
-
+      sort,
       popUp
     } = this.state;
 
@@ -98,7 +100,7 @@ class Devices extends Component {
     return (
       <div className="enclose">
         <div className="icon">
-          <img src={camIcon} alt="" />
+          <img src={Logo} alt="" />
         </div>
         <div className="title">
           <h3>Camers</h3>
@@ -112,7 +114,21 @@ class Devices extends Component {
           />
 
           <div className="toggle">
-            <button onClick={this.popUpControll}>{"Sort by:"}</button>
+            <div className="pop-button" onClick={this.popUpControll}>
+              <img src={Sorting} alt="" />
+              <h3 className={sort === "none" ? "visible" : "hidden"}>
+                Sort by...
+              </h3>
+              <h3 className={sort === "name" ? "visible" : "hidden"}>
+                Sort by:Name
+              </h3>
+              <h3 className={sort === "id" ? "visible" : "hidden"}>
+                Sort by:Id
+              </h3>
+              <h3 className={sort === "status" ? "visible" : "hidden"}>
+                Sort by:Status
+              </h3>
+            </div>
 
             <div className={popUp === "open" ? "popup-contain" : "hidden"}>
               <h1 onClick={this.exit}>X</h1>

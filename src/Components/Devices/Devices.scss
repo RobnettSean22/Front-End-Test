@@ -37,7 +37,7 @@ body {
   }
   .search {
     width: 60%;
-    height: 5%;
+    height: 8%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -45,7 +45,7 @@ body {
     margin-bottom: 2%;
     input {
       width: 23%;
-      height: 70%;
+      height: 56%;
 
       border-radius: 5px;
       &:focus {
@@ -58,12 +58,23 @@ body {
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      button {
-        width: 44%;
-        height: 100%;
+      .pop-button {
+        width: 49%;
+        height: 69%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
         border-radius: 5px;
-        font-size: 16px;
-        letter-spacing: 2px;
+        border: 1px solid rgb(98, 96, 96);
+        img {
+          width: 23%;
+          height: 78%;
+        }
+
+        .visible {
+          margin: 0;
+          font-size: 14px;
+        }
 
         &:focus {
           outline: none;
