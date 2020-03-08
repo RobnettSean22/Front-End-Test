@@ -154,9 +154,10 @@ class Devices extends Component {
 
     return (
       <div className="enclose">
+        <div className="icon"></div>
         <div className="title">
-          <h4>Your Camera</h4>
-          <h5>Total devices: {statusInventory.length}</h5>
+          <h5>Camers</h5>
+          <h5>Total Devices: {statusInventory.length}</h5>
         </div>
         <div className="search">
           <input
@@ -265,36 +266,27 @@ class Devices extends Component {
                   );
                 });
 
-                const mapOn = matchId.map(order => {
+                const mapMatched = matchId.map(order => {
                   return (
-                    <div className="status-container">
-                      <div
-                        className={
-                          deviceStatus.active ? "camera-container" : "hidden"
-                        }
-                        key={deviceStatus.id}
-                      >
-                        <div className="pic-capsule">
-                          <img src={deviceStatus.thumbnail} alt="" />
-                        </div>
-                        <div className="status-n-name">
-                          <div
-                            className={
-                              deviceStatus.active ? "active" : "inactive"
-                            }
-                          >
-                            <h3>
-                              {deviceStatus.active ? "Active" : "Inactive"}
-                            </h3>
-                            <h1>{order.name}</h1>
-                          </div>
+                    <div className="camera-container" key={order.id}>
+                      <div className="pic-capsule">
+                        <img src={deviceStatus.thumbnail} alt="" />
+                      </div>
+                      <div className="status-n-name">
+                        <div
+                          className={
+                            deviceStatus.active ? "active" : "inactive"
+                          }
+                        >
+                          <h3>{deviceStatus.active ? "Active" : "Inactive"}</h3>
+                          <h1>{order.name}</h1>
                         </div>
                       </div>
                     </div>
                   );
                 });
 
-                return mapOn;
+                return mapMatched;
               })}
           </div>
         </div>
