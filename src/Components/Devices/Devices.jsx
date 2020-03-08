@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Devices.scss";
 import axios from "axios";
+import camIcon from "./securty-cam.png";
 
 class Devices extends Component {
   constructor(props) {
@@ -12,7 +13,6 @@ class Devices extends Component {
       searchFilter: "",
       camConnect: false,
 
-      reverseName: null,
       popUp: "closed"
     };
 
@@ -44,7 +44,6 @@ class Devices extends Component {
       camConnect: false,
       reverseId: false,
 
-      reverseName: null,
       popUp: "closed",
 
       deviceInventory: this.state.deviceInventory.sort((a, b) => a.id - b.id)
@@ -55,7 +54,6 @@ class Devices extends Component {
     this.setState({
       camConnect: true,
 
-      reverseName: null,
       popUp: "closed",
       statusInventory: this.state.statusInventory.sort(
         (a, b) => b.active - a.active
@@ -65,7 +63,7 @@ class Devices extends Component {
   nameSwitch() {
     this.setState({
       camConnect: false,
-      reverseName: false,
+
       popUp: "closed",
       deviceInventory: this.state.deviceInventory.sort((a, b) => {
         const abc = this.state.camID && this.state.camConnect ? -1 : 1;
@@ -91,7 +89,7 @@ class Devices extends Component {
       statusInventory,
       searchFilter,
       camConnect,
-      reverseName,
+
       popUp
     } = this.state;
 
@@ -99,7 +97,9 @@ class Devices extends Component {
 
     return (
       <div className="enclose">
-        <div className="icon"></div>
+        <div className="icon">
+          <img src={camIcon} alt="" />
+        </div>
         <div className="title">
           <h3>Camers</h3>
           <h5>Total Devices: {statusInventory.length}</h5>
