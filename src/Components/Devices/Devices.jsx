@@ -156,12 +156,12 @@ class Devices extends Component {
       <div className="enclose">
         <div className="icon"></div>
         <div className="title">
-          <h5>Camers</h5>
+          <h3>Camers</h3>
           <h5>Total Devices: {statusInventory.length}</h5>
         </div>
         <div className="search">
           <input
-            placeholder="Search by Name or Id"
+            placeholder="Search by Name or Id..."
             value={searchFilter}
             onChange={e => this.setState({ searchFilter: e.target.value })}
           />
@@ -205,9 +205,16 @@ class Devices extends Component {
             </button>
           </div>
           <div className="toggle">
-            <div onClick={this.popUpControll}>
-              <h4>Sort By...</h4>
-            </div>
+            <button onClick={this.popUpControll}>
+              {!reverseName === null
+                ? "Sort by: Name"
+                : !reverseConnect === null
+                ? "Sort by: Id"
+                : !reverseId === null
+                ? "Sorty by: Status"
+                : "Sort by:"}
+            </button>
+
             <div className={popUp === "open" ? "popup-contain" : "hidden"}>
               <div onClick={this.nameSwitch}>By Name</div>
               <div onClick={this.connectSwitch}>By Status</div>
