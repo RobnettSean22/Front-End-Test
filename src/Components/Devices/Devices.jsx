@@ -10,10 +10,8 @@ class Devices extends Component {
       deviceInventory: [],
       statusInventory: [],
       searchFilter: "",
-
       camConnect: false,
-      reverseId: null,
-      reverseConnect: null,
+
       reverseName: null,
       popUp: "closed"
     };
@@ -21,12 +19,6 @@ class Devices extends Component {
     this.connectSwitch = this.connectSwitch.bind(this);
     this.idSwitch = this.idSwitch.bind(this);
     this.nameSwitch = this.nameSwitch.bind(this);
-    this.connectReverse = this.connectReverse.bind(this);
-    this.idReverse = this.idReverse.bind(this);
-    this.nameReverse = this.nameReverse.bind(this);
-    this.connectBackTo = this.connectBackTo.bind(this);
-    this.idBackTo = this.idBackTo.bind(this);
-    this.nameBackTo = this.nameBackTo.bind(this);
   }
   componentDidMount() {
     this.viewAllDevices();
@@ -51,7 +43,7 @@ class Devices extends Component {
     this.setState({
       camConnect: false,
       reverseId: false,
-      reverseConnect: null,
+
       reverseName: null,
       popUp: "closed",
 
@@ -62,8 +54,7 @@ class Devices extends Component {
   connectSwitch = () => {
     this.setState({
       camConnect: true,
-      reverseConnect: false,
-      reverseId: null,
+
       reverseName: null,
       popUp: "closed",
       statusInventory: this.state.statusInventory.sort(
@@ -75,8 +66,6 @@ class Devices extends Component {
     this.setState({
       camConnect: false,
       reverseName: false,
-      reverseId: null,
-      reverseConnect: null,
       popUp: "closed",
       deviceInventory: this.state.deviceInventory.sort((a, b) => {
         const abc = this.state.camID && this.state.camConnect ? -1 : 1;
@@ -84,57 +73,15 @@ class Devices extends Component {
       })
     });
   }
-  idReverse = () => {
-    this.setState({
-      reverseId: true,
-      deviceInventory: this.state.deviceInventory.sort((a, b) => b.id - a.id)
-    });
-  };
 
-  connectReverse = () => {
-    this.setState({
-      reverseConnect: true,
-      statusInventory: this.state.statusInventory.sort(
-        (a, b) => a.active - b.active
-      )
-    });
-  };
-  nameReverse() {
-    this.setState({
-      reverseName: true,
-      deviceInventory: this.state.deviceInventory.sort((a, b) => {
-        const abc = this.state.camID && this.state.camConnect ? -1 : 1;
-        return abc * b.name.localeCompare(a.name);
-      })
-    });
-  }
-  idBackTo = () => {
-    this.setState({
-      reverseId: false,
-      deviceInventory: this.state.deviceInventory.sort((a, b) => a.id - b.id)
-    });
-  };
-
-  connectBackTo = () => {
-    this.setState({
-      reverseConnect: false,
-      statusInventory: this.state.statusInventory.sort(
-        (a, b) => b.active - a.active
-      )
-    });
-  };
-  nameBackTo() {
-    this.setState({
-      reverseName: false,
-      deviceInventory: this.state.deviceInventory.sort((a, b) => {
-        const abc = this.state.camID && this.state.camConnect ? -1 : 1;
-        return abc * a.name.localeCompare(b.name);
-      })
-    });
-  }
   popUpControll = () => {
     this.setState({
       popUp: "open"
+    });
+  };
+  exit = () => {
+    this.setState({
+      popUp: "closed"
     });
   };
 
@@ -144,9 +91,7 @@ class Devices extends Component {
       statusInventory,
       searchFilter,
       camConnect,
-      reverseId,
       reverseName,
-      reverseConnect,
       popUp
     } = this.state;
 
@@ -166,59 +111,20 @@ class Devices extends Component {
             onChange={e => this.setState({ searchFilter: e.target.value })}
           />
 
-          <div className="reverse">
-            <button
-              className={reverseId === true ? "show" : "hidden"}
-              onClick={this.idBackTo}
-            >
-              1 to 10
-            </button>
-            <button
-              className={reverseName === true ? "show" : "hidden"}
-              onClick={this.nameBackTo}
-            >
-              A to Z
-            </button>
-            <button
-              className={reverseConnect === true ? "show" : "hidden"}
-              onClick={this.connectBackTo}
-            >
-              On Off
-            </button>
-            <button
-              className={reverseId === false ? "show" : "hidden"}
-              onClick={this.idReverse}
-            >
-              10 to 1
-            </button>
-            <button
-              className={reverseName === false ? "show" : "hidden"}
-              onClick={this.nameReverse}
-            >
-              Z to A
-            </button>
-            <button
-              className={reverseConnect === false ? "show" : "hidden"}
-              onClick={this.connectReverse}
-            >
-              Off On
-            </button>
-          </div>
           <div className="toggle">
-            <button onClick={this.popUpControll}>
-              {!reverseName === null
-                ? "Sort by: Name"
-                : !reverseConnect === null
-                ? "Sort by: Id"
-                : !reverseId === null
-                ? "Sorty by: Status"
-                : "Sort by:"}
-            </button>
+            <button onClick={this.popUpControll}>{"Sort by:"}</button>
 
             <div className={popUp === "open" ? "popup-contain" : "hidden"}>
-              <div onClick={this.nameSwitch}>By Name</div>
-              <div onClick={this.connectSwitch}>By Status</div>
-              <div onClick={this.idSwitch}>By Id</div>
+              <h1 onClick={this.exit}>X</h1>
+              <div className="name" onClick={this.nameSwitch}>
+                By Name
+              </div>
+              <div className="connect" onClick={this.connectSwitch}>
+                By Status
+              </div>
+              <div className="id" onClick={this.idSwitch}>
+                By Id
+              </div>
             </div>
           </div>
         </div>

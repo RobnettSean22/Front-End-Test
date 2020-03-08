@@ -30,7 +30,7 @@ body {
   }
   .search {
     width: 60%;
-    height: 4%;
+    height: 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -55,9 +55,14 @@ body {
         width: 44%;
         height: 100%;
         border-radius: 5px;
-        font-size: 10px;
+        font-size: 16px;
+        letter-spacing: 2px;
+
         &:focus {
           outline: none;
+        }
+        &:hover {
+          cursor: pointer;
         }
       }
       .hidden {
@@ -65,10 +70,44 @@ body {
       }
       .popup-contain {
         position: absolute;
-        width: 10%;
-        height: 10%;
-        top: 21%;
-        left: 69%;
+        width: 12%;
+        height: 14%;
+        top: 18.8%;
+        left: 69.5%;
+        background: #e3e1e1;
+        z-index: 4;
+        border-radius: 3px;
+        box-shadow: -1px 10px 10px -1px rgba(0, 0, 0, 0.75);
+        h1 {
+          position: absolute;
+          font-weight: bold;
+          top: -23%;
+          left: 92%;
+          font-size: 25px;
+          opacity: 0.5;
+          &:hover {
+            cursor: pointer;
+            opacity: 1;
+          }
+        }
+        div {
+          width: 100%;
+          height: 33.3%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          &:hover {
+            cursor: pointer;
+            width: 101%;
+            height: 34%;
+          }
+        }
+        .name {
+          border-bottom: 2px black solid;
+        }
+        .connect {
+          border-bottom: 2px black solid;
+        }
       }
     }
     .reverse {
