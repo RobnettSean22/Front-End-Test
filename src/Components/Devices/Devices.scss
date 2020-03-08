@@ -44,12 +44,20 @@ body {
     border-bottom: dotted 2px rgb(24, 23, 23);
     margin-bottom: 2%;
     input {
-      width: 23%;
+      // background-image: url(Search.svg);
+      // background-repeat: no-repeat;
+
+      width: 18%;
       height: 56%;
+      font-size: 14px;
+      &:after {
+        opacity: 0.5;
+      }
 
       border-radius: 5px;
       &:focus {
         outline: none;
+        background-image: none;
       }
     }
     .toggle {
@@ -59,7 +67,7 @@ body {
       justify-content: flex-end;
       align-items: center;
       .pop-button {
-        width: 49%;
+        width: 43%;
         height: 69%;
         display: flex;
         justify-content: flex-start;

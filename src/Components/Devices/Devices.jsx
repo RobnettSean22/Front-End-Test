@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import "./Devices.scss";
 import axios from "axios";
-
-import searchIcon from "./Search.svg";
 import Logo from "./Logo.svg";
 import Sorting from "./Sorting.svg";
 
