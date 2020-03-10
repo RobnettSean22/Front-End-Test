@@ -6,7 +6,6 @@ const port = 4001;
 
 app.use(express.json());
 app.use(express.static(`${__dirname}/../build`));
-
 app.get("/api/all_devices/", viewAllDevices);
 
 app.get("/api/all_status", viewAllStatus);
