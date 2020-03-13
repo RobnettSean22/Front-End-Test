@@ -3,7 +3,6 @@ const app = express();
 const { viewAllDevices } = require("./controllers/deviceController");
 const { viewAllStatus } = require("./controllers/statusController");
 
-const path = require("path");
 const port = 4001;
 
 app.use(express.json());
