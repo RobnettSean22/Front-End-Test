@@ -96,24 +96,24 @@ class Devices extends Component {
     console.log(8282, statusInventory, deviceInventory.devices);
 
     return (
-      <div className="enclose">
-        <div className="icon">
-          <img src={Logo} alt="" />
+      <div className='enclose'>
+        <div className='icon'>
+          <img src={Logo} alt='' />
         </div>
-        <div className="title">
+        <div className='title'>
           <h3>Camers</h3>
           <h5>Total Devices: {statusInventory.length}</h5>
         </div>
-        <div className="search">
+        <div className='search'>
           <input
-            placeholder="Search by Name or Id..."
+            placeholder='Search by Name or Id...'
             value={searchFilter}
             onChange={e => this.setState({ searchFilter: e.target.value })}
           />
 
-          <div className="toggle">
-            <div className="pop-button" onClick={this.popUpControll}>
-              <img src={Sorting} alt="" />
+          <div className='toggle'>
+            <div className='pop-button' onClick={this.popUpControll}>
+              <img src={Sorting} alt='' />
               <h3 className={sort === "none" ? "visible" : "hidden"}>
                 Sort by...
               </h3>
@@ -130,21 +130,21 @@ class Devices extends Component {
 
             <div className={popUp === "open" ? "popup-contain" : "hidden"}>
               <h1 onClick={this.exit}>X</h1>
-              <div className="name" onClick={this.nameSwitch}>
+              <div className='name' onClick={this.nameSwitch}>
                 By Name
               </div>
-              <div className="connect" onClick={this.connectSwitch}>
+              <div className='connect' onClick={this.connectSwitch}>
                 By Status
               </div>
-              <div className="id" onClick={this.idSwitch}>
+              <div className='id' onClick={this.idSwitch}>
                 By Id
               </div>
             </div>
           </div>
         </div>
 
-        <div className="grid-enclosure">
-          <div className="camera-capsule">
+        <div className='grid-enclosure'>
+          <div className='camera-capsule'>
             {statusInventory.length > 1 &&
               camConnect === false &&
               deviceInventory.map(dVices => {
@@ -162,11 +162,11 @@ class Devices extends Component {
 
                 const mapMatched = matchId.map(order => {
                   return (
-                    <div className="camera-container" key={order.deviceId}>
-                      <div className="pic-capsule">
-                        <img src={order.thumbnail} alt="" />
+                    <div className='camera-container' key={order.deviceId}>
+                      <div className='pic-capsule'>
+                        <img src={order.thumbnail} alt='' />
                       </div>
-                      <div className="status-n-name">
+                      <div className='status-n-name'>
                         <div className={order.active ? "active" : "inactive"}>
                           <h3>{order.active ? "Active" : "Inactive"}</h3>
                           <h1>{dVices.name}</h1>
@@ -195,11 +195,11 @@ class Devices extends Component {
 
                 const mapMatched = matchId.map(order => {
                   return (
-                    <div className="camera-container" key={order.id}>
-                      <div className="pic-capsule">
-                        <img src={deviceStatus.thumbnail} alt="" />
+                    <div className='camera-container' key={order.id}>
+                      <div className='pic-capsule'>
+                        <img src={deviceStatus.thumbnail} alt='' />
                       </div>
-                      <div className="status-n-name">
+                      <div className='status-n-name'>
                         <div
                           className={
                             deviceStatus.active ? "active" : "inactive"

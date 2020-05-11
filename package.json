@@ -1,11 +1,11 @@
 {
   "name": "react-template",
   "version": "0.1.0",
-  "main": "server/index.js",
+  "main": "./server",
   "proxy": "http://localhost:4001/",
   "private": true,
   "dependencies": {
-    "axios": "^0.19.1",
+    "axios": "^0.19.2",
     "express": "^4.17.1",
     "node-sass": "^4.13.1",
     "npm": "^6.13.6",
